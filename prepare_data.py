@@ -60,7 +60,9 @@ def count_pos_tags(text):
     return tag_count
 
 def make_vec(tag_count):
-    """Convert tag_count into a vector."""
+    """
+    Convert tag_count into a normalized vector.
+    """
     vec = [0] * len(pos_tags_to_index)
     tags = tag_count.keys()
     for tag in tags:
@@ -70,7 +72,8 @@ def make_vec(tag_count):
         except KeyError:
             pdb.set_trace() 
         vec[i] += n
-    return vec
+    vecnorm = sum([abs(v) for v in vec]) #technically not necessary to take abs but might as well
+    return [v / vecnorm for v in vec]
 
 
 if __name__ == "__main__":  
